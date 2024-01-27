@@ -11,11 +11,10 @@ import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/mode-typescript";
 
-// //themes
+//themes
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/theme-terminal";
 import "ace-builds/src-noconflict/theme-twilight";
-
 import { getExtension, initialCode } from "@/utils/utilities";
 
 interface CodeEditorProps {
@@ -26,14 +25,13 @@ interface CodeEditorProps {
   currentPadding?: string;
 }
 
-const CodeEditor = ({
+function CodeEditor({
   language,
   theme,
   icon,
   background,
   currentPadding,
-}: CodeEditorProps) => {
-
+}: CodeEditorProps) {
   const [width, setWidth] = React.useState(1000);
   const [height, setHeight] = React.useState<number | null>(500);
   const [title, setTitle] = React.useState("App");
@@ -41,9 +39,12 @@ const CodeEditor = ({
 
   const [extension, setExtension] = React.useState(".js");
 
-  const handleResize = (evt: any, direction: any, ref: { style: { height: any; }; }, pos: any) => {
-    const newHeight = ref.style.height;
-    setHeight(parseInt(newHeight, 10));
+  useEffect(() => {
+    setExtension(getExtension(language));
+  }, [language]);
+
+  const handleCodeChange = (newCode: string) => {
+    setCode(newCode);
   };
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,9 +52,13 @@ const CodeEditor = ({
     setTitle(newTitle);
   };
 
+  // @ts-ignore
+  const handleResize = (evt, direction, ref, pos) => {
+    const newHeight = ref.style.height;
+    setHeight(parseInt(newHeight, 10));
+  };
 
   const updateSize = () => {
-    setHeight(window.innerHeight)
     setWidth(window.innerWidth);
   };
 
@@ -64,7 +69,10 @@ const CodeEditor = ({
   }, []);
 
   return (
-    <Resizable minHeight={400} minWidth={400} maxHeight={1000} maxWidth={1000}
+    <Resizable
+      minHeight={466}
+      minWidth={510}
+      maxWidth={1000}
       defaultSize={{
         width: width,
         height: height || 500,
@@ -73,8 +81,8 @@ const CodeEditor = ({
       className="resize-container relative"
       style={{
         background: background,
-      }}>
-
+      }}
+    >
       <div
         className="code-block"
         style={{
@@ -129,28 +137,24 @@ const CodeEditor = ({
             <img src={icon} className="w-[33px]" alt="" />
           </div>
         </div>
-
         <AceEditor
-          value="code here"
-          fontSize={16}
-          wrapEnabled={true}
-          placeholder="enter your code here"
-          showPrintMargin={false}
-          highlightActiveLine={true}
-          className="ace-editor-container"
-          showGutter={true}
-          height={`calc(${height}px - ${currentPadding} - ${currentPadding} - 52px)`}
-
+          value={code}
           name="code-editor"
-          mode={language?.toLowerCase()}
-          theme={theme?.toLowerCase()}
+          fontSize={16}
+          theme={theme}
+          mode={language.toLocaleLowerCase()}
+          showGutter={false}
+          wrapEnabled={true}
+          height={`calc(${height}px - ${currentPadding} - ${currentPadding} - 52px)`}
+          showPrintMargin={false}
+          highlightActiveLine={false}
           editorProps={{ $blockScrolling: true }}
+          className="ace-editor-container"
+          onChange={handleCodeChange}
         />
       </div>
-
-
     </Resizable>
-  )
+  );
 }
 
-export default CodeEditor
+export default CodeEditor;

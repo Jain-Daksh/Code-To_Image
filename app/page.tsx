@@ -1,14 +1,14 @@
 "use client";
 import React, { useState, useRef } from "react";
-import CodeEditor from "@/components/CodeEditor";
 import { backgrounds, languages, themes } from "@/utils/utilities";
-import LanguageSelector from "@/components/LanguageSelector";
-import ThemeSelector from "@/components/ThemeSelector";
-import BackgroundSelector from "@/components/BackgroundSelector";
-import PaddingSelector from "@/components/PaddingSelector";
 import { Download } from "lucide-react";
-import Footer from "@/components/Footer";
 import html2canvas from "html2canvas";
+import BackgroundSelector from "@/components/BackgroundSelector";
+import CodeEditor from "@/components/CodeEditor";
+import Footer from "@/components/Footer";
+import LanguageSelector from "@/components/LanguageSelector";
+import PaddingSelector from "@/components/PaddingSelector";
+import ThemeSelector from "@/components/ThemeSelector";
 
 export default function Home() {
   const editorRef = useRef(null);
