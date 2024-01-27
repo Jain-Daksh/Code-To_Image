@@ -34,7 +34,7 @@ License:
 This project is licensed under the MIT License, which means you are free to modify and distribute the code for both commercial and non-commercial purposes. Please see the LICENSE file for more details.
 
 Contact:
-For any inquiries or feedback regarding the Code to Image Converter App, please contact [Your Name] at [your-email@example.com].
+For any inquiries or feedback regarding the Code to Image Converter App, please contact Daksh Jain .
 
 Acknowledgments:
 We would like to thank the developers of [list any libraries or frameworks used] for their valuable contributions to this project.
