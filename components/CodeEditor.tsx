@@ -41,9 +41,31 @@ const CodeEditor = ({
 
   const [extension, setExtension] = React.useState(".js");
 
+  const handleResize = (evt: any, direction: any, ref: { style: { height: any; }; }, pos: any) => {
+    const newHeight = ref.style.height;
+    setHeight(parseInt(newHeight, 10));
+  };
+  const updateSize = () => {
+    setWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateSize);
+    updateSize();
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
 
   return (
-    <Resizable minHeight={450} minWidth={510} maxHeight={1000} maxWidth={1000}>
+    <Resizable minHeight={400} minWidth={400} maxHeight={1000} maxWidth={1000}
+      defaultSize={{
+        width: width,
+        height: height || 500,
+      }}
+      onResize={handleResize}
+      className="resize-container relative"
+      style={{
+        background: background,
+      }}>
       <AceEditor
         value="code here"
         fontSize={16}
@@ -54,8 +76,8 @@ const CodeEditor = ({
         className="ace-editor-container"
         showGutter={true}
         name="code-editor"
-        mode={"javascript"}
-        theme=""
+        mode={language?.toLowerCase()}
+        theme={theme?.toLowerCase()}
         editorProps={{ $blockScrolling: true }}
       />
     </Resizable>
