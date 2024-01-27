@@ -46,6 +46,7 @@ const CodeEditor = ({
     setHeight(parseInt(newHeight, 10));
   };
   const updateSize = () => {
+    setHeight(window.innerHeight)
     setWidth(window.innerWidth);
   };
 
@@ -66,20 +67,81 @@ const CodeEditor = ({
       style={{
         background: background,
       }}>
-      <AceEditor
-        value="code here"
-        fontSize={16}
-        wrapEnabled={true}
-        placeholder="enter your code here"
-        showPrintMargin={true}
-        highlightActiveLine={true}
-        className="ace-editor-container"
-        showGutter={true}
-        name="code-editor"
-        mode={language?.toLowerCase()}
-        theme={theme?.toLowerCase()}
-        editorProps={{ $blockScrolling: true }}
-      />
+
+      <div
+        className="code-block"
+        style={{
+          padding: currentPadding,
+        }}
+      >
+        <div
+          className="handle handle-top absolute left-1/2 translate-x-[-50%] top-[-4px] w-2 h-2 
+            rounded-full bg-slate-300 hover:bg-slate-50"
+        ></div>
+        <div
+          className="handle handle-bottom absolute left-1/2 bottom-[-4px] w-2 h-2 rounded-full
+        bg-slate-300 hover:bg-slate-50 "
+        ></div>
+        <div
+          className="handle handle-left absolute left-[-4px] top-1/2 w-2 h-2 rounded-full 
+        bg-slate-300 hover:bg-slate-50 "
+        ></div>
+        <div
+          className="handle handle-right absolute right-[-4px] top-1/2 w-2 h-2 rounded-full
+        bg-slate-300 hover:bg-slate-50 "
+        ></div>
+
+        <div
+          className="
+            code-title h-[52px] px-4 flex items-center justify-between
+            bg-black bg-opacity-80"
+        >
+          <div className="dots flex items-center gap-1">
+            <div className="w-3 h-3 rounded-full bg-[#ff5656]"></div>
+            <div className="w-3 h-3 rounded-full bg-[#ffbc6a] "></div>
+            <div className="w-3 h-3 rounded-full bg-[#67f772] "></div>
+          </div>
+
+          <div className="input-contol w-full">
+            {/* <input
+              type="text"
+              value={`${title}${extension}`}
+              onChange={(e) => handleTitleChange(e)}
+              className="w-full text-[hsla(0,0%,100%,.6)]  outline-none font-medium 
+                text-center bg-transparent"
+              style={{
+                lineHeight: "1.8rem",
+              }}
+            /> */}
+          </div>
+
+          <div
+            className="icon flex justify-center items-center p-1 bg-black
+               bg-opacity-30 rounded-sm"
+          >
+            <img src={icon} className="w-[33px]" alt="" />
+          </div>
+        </div>
+
+        <AceEditor
+          value="code here"
+          fontSize={16}
+          wrapEnabled={true}
+          placeholder="enter your code here"
+          showPrintMargin={true}
+          highlightActiveLine={true}
+          className="ace-editor-container"
+          showGutter={true}
+          height={`calc(${height}px - ${currentPadding} - ${currentPadding} - 52px)`}
+
+          name="code-editor"
+          mode={language?.toLowerCase()}
+          theme={theme?.toLowerCase()}
+          editorProps={{ $blockScrolling: true }}
+        />
+      </div>
+
+
     </Resizable>
   )
 }
