@@ -45,6 +45,13 @@ const CodeEditor = ({
     const newHeight = ref.style.height;
     setHeight(parseInt(newHeight, 10));
   };
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newTitle = e.target.value.split(".")[0];
+    setTitle(newTitle);
+  };
+
+
   const updateSize = () => {
     setHeight(window.innerHeight)
     setWidth(window.innerWidth);
@@ -103,7 +110,7 @@ const CodeEditor = ({
           </div>
 
           <div className="input-contol w-full">
-            {/* <input
+            <input
               type="text"
               value={`${title}${extension}`}
               onChange={(e) => handleTitleChange(e)}
@@ -112,7 +119,7 @@ const CodeEditor = ({
               style={{
                 lineHeight: "1.8rem",
               }}
-            /> */}
+            />
           </div>
 
           <div
@@ -128,7 +135,7 @@ const CodeEditor = ({
           fontSize={16}
           wrapEnabled={true}
           placeholder="enter your code here"
-          showPrintMargin={true}
+          showPrintMargin={false}
           highlightActiveLine={true}
           className="ace-editor-container"
           showGutter={true}
